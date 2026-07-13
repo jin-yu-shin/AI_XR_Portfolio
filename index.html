@@ -613,15 +613,6 @@
     .lightbox{padding:24px;}
     .lightbox-close{top:14px; right:14px;}
   }
-  .vr-morph-frame{position:relative;}
-  .vr-morph-img{
-    position:absolute;
-    top:0; left:0; right:0; bottom:0;
-    margin:auto;
-    opacity:0;
-    transition:opacity 4s ease;
-  }
-  .vr-morph-img.is-active{opacity:1;}
   .mini-gallery{
     display:grid;
     grid-template-columns:repeat(2, 1fr);
@@ -1073,9 +1064,8 @@
               </div>
             </div>
             <div class="stack-right">
-              <div class="media-frame vr-morph-frame" id="work05MorphFrame">
-                <img class="work-main-img vr-morph-img is-active" src="6. VR 전시 공간/VR 전시 공간 스크린샷 1.png" alt="VR 전시 공간 스크린샷 1">
-                <img class="work-main-img vr-morph-img" src="6. VR 전시 공간/VR 전시 공간 스크린샷 2.png" alt="VR 전시 공간 스크린샷 2">
+              <div class="media-frame">
+                <video class="work-main-video" src="6. VR 전시 공간/oculus_cast_video_07_13_2026_15_45_37_0.mp4" controls playsinline></video>
               </div>
             </div>
           </div>
@@ -1399,20 +1389,6 @@
         }
       });
     });
-  })();
-
-  // VR 전시 공간 스크린샷 2장이 1초 간격으로 서로 크로스페이드(모핑처럼) 전환됨
-  (function(){
-    const frame = document.getElementById('work05MorphFrame');
-    if(!frame) return;
-    const imgs = frame.querySelectorAll('.vr-morph-img');
-    if(imgs.length < 2) return;
-    let idx = 0;
-    setInterval(()=>{
-      imgs[idx].classList.remove('is-active');
-      idx = (idx + 1) % imgs.length;
-      imgs[idx].classList.add('is-active');
-    }, 4000);
   })();
 
   function toggleDevlog(btn){
