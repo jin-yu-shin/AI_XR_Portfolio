@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Claude Code 로컬 세션 데이터 (깃헙에 올리면 안 됨)
+.claude/
+
+# Vercel
+.vercel/
+
+# Env
+.env
+.env.local
