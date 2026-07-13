@@ -780,10 +780,15 @@
     height:8px; opacity:0.35;
     animation:none;
   }
-  .song-row.is-playing .bars span{opacity:1; animation:barbeat 0.9s ease-in-out infinite;}
-  .bars span:nth-child(2){animation-delay:0.15s;}
-  .bars span:nth-child(3){animation-delay:0.3s;}
-  @keyframes barbeat{0%,100%{height:8px;} 50%{height:26px;}}
+  .song-row.is-playing .bars span{opacity:1;}
+  /* 세 막대가 서로 다른 주기·높이로 움직이도록 해서, delay만 줬을 때처럼 항상 같은 간격으로 붙어다니지 않고
+     진짜 이퀄라이저처럼 각자 따로 움직이는 느낌을 준다 */
+  .song-row.is-playing .bars span:nth-child(1){animation:barbeat1 0.8s ease-in-out infinite;}
+  .song-row.is-playing .bars span:nth-child(2){animation:barbeat2 1.15s ease-in-out infinite;}
+  .song-row.is-playing .bars span:nth-child(3){animation:barbeat3 0.65s ease-in-out infinite;}
+  @keyframes barbeat1{0%,100%{height:8px;} 50%{height:23px;}}
+  @keyframes barbeat2{0%,100%{height:14px;} 50%{height:26px;}}
+  @keyframes barbeat3{0%,100%{height:6px;} 50%{height:18px;}}
   @media (max-width:820px){
     .theme-list{grid-template-columns:1fr; gap:44px;}
   }
