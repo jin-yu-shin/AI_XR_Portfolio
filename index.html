@@ -144,6 +144,7 @@
   }
   .stack-right .media-frame{flex:1; min-height:0; width:100%; max-width:none; aspect-ratio:auto;}
   .stack-right .model-row{flex:1; min-height:0; width:100%; max-width:none;}
+  .stack-right .model-single{flex:1; min-height:0; width:100%; max-width:none;}
   .stack-right .mini-gallery{flex:1; min-height:0; width:100%; max-width:none;}
   .stack-right .mini-gallery .thumb{aspect-ratio:auto; height:100%;}
   .story-title{
@@ -174,7 +175,7 @@
     .stack-grid{grid-template-columns:1fr; gap:20px;}
     .stack-left{height:auto; overflow:visible; gap:16px;}
     .stack-right{height:auto; aspect-ratio:4/3;}
-    .stack-right .media-frame, .stack-right .model-row, .stack-right .mini-gallery{flex:none; height:100%;}
+    .stack-right .media-frame, .stack-right .model-row, .stack-right .model-single, .stack-right .mini-gallery{flex:none; height:100%;}
   }
 
   /* ---------- PROGRESS BAR ---------- */
@@ -652,6 +653,7 @@
   }
   .model-caption{font-size:11px; color:var(--muted); text-align:center; margin-top:10px;}
   .model-row{width:100%; max-width:640px; display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;}
+  .model-single{width:100%; max-width:420px;}
   .model-fallback{
     display:none; width:100%; aspect-ratio:1/1;
     object-fit:contain; border-radius:10px;
@@ -1020,19 +1022,21 @@
               </div>
             </div>
             <div class="stack-right">
-              <div class="model-row">
-                <div>
-                  <model-viewer src="5. 3D 오브젝트/3D 오브젝트 - Meshy_AI_LEGO_Crab.glb"
-                    alt="레고 게 3D 모델" auto-rotate camera-controls shadow-intensity="1"
-                    poster="5. 3D 오브젝트/3D 오브젝트 - 레고 게 스크린샷.png"></model-viewer>
-                  <img class="model-fallback" src="5. 3D 오브젝트/3D 오브젝트 - 레고 게 스크린샷.png" alt="레고 게 스크린샷">
-                </div>
-                <div>
-                  <model-viewer src="5. 3D 오브젝트/3D 오브젝트 - Meshy_AI_LEGO_Minifigure.glb"
-                    alt="레고 미니피규어 3D 모델" auto-rotate camera-controls shadow-intensity="1"
-                    poster="5. 3D 오브젝트/3D 오브젝트 - 레고 미니피규어 스크린샷.png"></model-viewer>
-                  <img class="model-fallback" src="5. 3D 오브젝트/3D 오브젝트 - 레고 미니피규어 스크린샷.png" alt="레고 미니피규어 스크린샷">
-                </div>
+              <div class="model-single">
+                <model-viewer id="work04ModelViewer" src="5. 3D 오브젝트/3D 오브젝트 - Meshy_AI_LEGO_Crab.glb"
+                  alt="레고 게 3D 모델" auto-rotate camera-controls shadow-intensity="1"
+                  poster="5. 3D 오브젝트/3D 오브젝트 - 레고 게 스크린샷.png"></model-viewer>
+                <img class="model-fallback" id="work04ModelFallback" src="5. 3D 오브젝트/3D 오브젝트 - 레고 게 스크린샷.png" alt="레고 게 스크린샷">
+              </div>
+              <div class="style-switcher" id="work04Switcher">
+                <button class="style-btn active"
+                  data-glb="5. 3D 오브젝트/3D 오브젝트 - Meshy_AI_LEGO_Crab.glb"
+                  data-img="5. 3D 오브젝트/3D 오브젝트 - 레고 게 스크린샷.png"
+                  data-alt="레고 게 3D 모델" data-alt-img="레고 게 스크린샷">게</button>
+                <button class="style-btn"
+                  data-glb="5. 3D 오브젝트/3D 오브젝트 - Meshy_AI_LEGO_Minifigure.glb"
+                  data-img="5. 3D 오브젝트/3D 오브젝트 - 레고 미니피규어 스크린샷.png"
+                  data-alt="레고 미니피규어 3D 모델" data-alt-img="레고 미니피규어 스크린샷">미니피규어</button>
               </div>
               <div class="model-caption" id="modelCaption">드래그해서 직접 돌려보세요</div>
             </div>
@@ -1357,6 +1361,29 @@
         btn.classList.add('active');
         img.src = btn.dataset.src;
         img.alt = btn.dataset.label + ' 이미지';
+      });
+    });
+  })();
+
+  // 3D 오브젝트(게/미니피규어): 버튼을 눌러 고른 오브젝트 하나만 크게 보여줌
+  (function(){
+    const viewer = document.getElementById('work04ModelViewer');
+    const fallback = document.getElementById('work04ModelFallback');
+    const switcher = document.getElementById('work04Switcher');
+    if(!switcher) return;
+    switcher.querySelectorAll('.style-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        switcher.querySelectorAll('.style-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        if(viewer){
+          viewer.setAttribute('src', btn.dataset.glb);
+          viewer.setAttribute('poster', btn.dataset.img);
+          viewer.setAttribute('alt', btn.dataset.alt);
+        }
+        if(fallback){
+          fallback.src = btn.dataset.img;
+          fallback.alt = btn.dataset.altImg;
+        }
       });
     });
   })();
